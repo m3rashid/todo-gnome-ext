@@ -1,0 +1,8 @@
+{
+  "name": "Task Manager",
+  "description": "A simple task manager that lives in your top bar",
+  "uuid": "todo-manager@m3rashid.github.io",
+  "shell-version": ["48"],
+  "url": "",
+  "version": 1
+}

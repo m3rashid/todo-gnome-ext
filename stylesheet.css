@@ -1,0 +1,365 @@
+/* Main container styling */
+.task-manager-container {
+  padding: 0;
+  width: 400px;
+}
+
+/* Ensure popup menu has fixed width */
+.popup-menu-content {
+  width: 500px !important;
+  max-width: 500px !important;
+}
+
+/* Tab bar styling */
+.tab-bar {
+  padding: 4px;
+  spacing: 0;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px 8px 0 0;
+  margin: 0;
+  width: 100%;
+}
+
+.tab-button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.7);
+  transition-duration: 200ms;
+  margin: 0 2px;
+  x-expand: true;
+  x-align: center;
+}
+
+.tab-button:hover {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.tab-button:active,
+.tab-button.active {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Add button styling */
+.add-button-box {
+  margin: 0;
+  padding: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+}
+
+.add-button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  background-color: rgba(53, 132, 228, 0.1);
+  color: #3584e4;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: center;
+  transition-duration: 200ms;
+  width: 100%;
+}
+
+.add-button:hover {
+  background-color: rgba(53, 132, 228, 0.2);
+}
+
+.add-button:active {
+  background-color: rgba(53, 132, 228, 0.3);
+}
+
+.add-button.disabled {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* Add form styling */
+.add-task-box {
+  spacing: 12px;
+  padding: 8px;
+  background-color: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  width: 468px;
+  box-sizing: border-box;
+}
+
+/* Title input styling */
+.task-title-entry {
+  min-height: 24px;
+  padding: 2px 12px;
+  border-radius: 6px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.08);
+  color: white;
+  width: 100%;
+  box-sizing: border-box;
+  x-expand: true;
+}
+
+.task-title-entry:focus {
+  border-color: #3584e4;
+}
+
+/* Description input styling */
+.task-description-entry {
+  padding: 2px 12px;
+  border-radius: 6px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.08);
+  color: white;
+  width: 100%;
+  min-height: 64px;
+  height: auto;
+  x-expand: true;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  word-break: break-word;
+  line-height: 1.2;
+}
+
+.task-description-entry:focus {
+  border-color: #3584e4;
+}
+
+/* Form buttons */
+.form-button-box {
+  spacing: 8px;
+  margin-top: 8px;
+  width: 100%;
+  x-expand: true;
+  box-sizing: border-box;
+}
+
+.form-button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: bold;
+  transition-duration: 200ms;
+  x-expand: true;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-button.save-button {
+  background-color: #3584e4;
+  color: white;
+}
+
+.form-button.save-button:hover {
+  background-color: #1c71d8;
+}
+
+.form-button.save-button.disabled {
+  background-color: rgba(53, 132, 228, 0.5);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.form-button.cancel-button {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.form-button.cancel-button:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Task items container */
+.items-container {
+  margin: 0;
+  padding: 8px;
+  width: 468px;
+  x-expand: true;
+}
+
+.task-item {
+  padding: 8px;
+  border-radius: 6px;
+  margin: 0 0 8px 0;
+  background-color: rgba(255, 255, 255, 0.02);
+  transition-duration: 200ms;
+  width: 468px;
+  box-sizing: border-box;
+}
+
+.task-item:last-child {
+  margin-bottom: 0;
+}
+
+.task-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.task-header {
+  spacing: 8px;
+  x-expand: true;
+  y-align: center;
+  min-height: 24px;
+  width: 468px;
+  box-sizing: border-box;
+}
+
+.task-content {
+  x-expand: true;
+  y-align: center;
+  width: 468px;
+  box-sizing: border-box;
+  spacing: 8px;
+}
+
+.task-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  x-expand: true;
+  y-align: center;
+  padding: 2px 0;
+  word-wrap: break-word;
+  word-break: break-word;
+  min-width: 370px;
+  max-width: 400px;
+  width: 400px;
+  text-overflow: initial;
+  line-height: 1.4;
+}
+
+.task-description {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 4px;
+  margin-left: 28px;
+  x-expand: true;
+  word-wrap: break-word;
+  word-break: break-word;
+  line-height: 1.4;
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #3584e4;
+  border-radius: 4px;
+  padding: 0;
+  transition-duration: 200ms;
+  y-align: start;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.checkbox:hover {
+  background-color: rgba(53, 132, 228, 0.1);
+}
+
+.checkbox.checked {
+  background-color: #3584e4;
+  background-image: url('resource:///org/gnome/shell/theme/checkbox-checked.svg');
+  background-size: 12px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.delete-button {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  color: #ed333b;
+  font-weight: bold;
+  font-size: 16px;
+  transition-duration: 200ms;
+  y-align: center;
+  margin-top: 2px;
+}
+
+.delete-button:hover {
+  background-color: #ed333b;
+  color: white;
+}
+
+.edit-button {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  color: #f6d32d;
+  font-weight: bold;
+  font-size: 14px;
+  transition-duration: 200ms;
+  y-align: center;
+  margin-top: 2px;
+  margin-right: 4px;
+}
+
+.edit-button:hover {
+  background-color: #f6d32d;
+  color: black;
+}
+
+.task-item.editing {
+  background-color: rgba(246, 211, 45, 0.1);
+  border: 1px solid rgba(246, 211, 45, 0.3);
+}
+
+/* Habit specific styling */
+.habit-stats {
+  margin: 4px 0 0 28px;
+  spacing: 4px;
+  x-expand: true;
+  width: calc(100% - 28px);
+  box-sizing: border-box;
+}
+
+.habit-progress {
+  height: 4px;
+  border-radius: 2px;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin-top: 4px;
+  x-expand: true;
+  width: 100%;
+}
+
+.habit-progress .progress-bar {
+  height: 4px;
+  border-radius: 2px;
+  background-color: #33d17a;
+}
+
+.habit-streak {
+  font-size: 12px;
+  color: #33d17a;
+  margin-top: 2px;
+}
+
+.habit-completion {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Empty state */
+.empty-state {
+  padding: 12px;
+  spacing: 12px;
+  width: 468px;
+  x-expand: true;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-state-icon {
+  icon-size: 32px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.empty-state-text {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  x-expand: true;
+}
+
+/* Separator styling */
+.popup-separator-menu-item {
+  margin: 6px 0;
+}
