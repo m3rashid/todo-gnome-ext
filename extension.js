@@ -10,7 +10,14 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
 import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 
-const STORAGE_FILE = GLib.build_filenamev([GLib.get_home_dir(), '.gnome-task-manager.json']);
+const STORAGE_DIR = GLib.build_filenamev([GLib.get_home_dir(), '.todo-manager']);
+const STORAGE_FILES = {
+	TASKS: GLib.build_filenamev([STORAGE_DIR, 'daily.json']),
+	DAILY_ROUTINES: GLib.build_filenamev([STORAGE_DIR, 'daily-routine.json']),
+	WEEKLY_ROUTINES: GLib.build_filenamev([STORAGE_DIR, 'weekly-routine.json']),
+	DAILY_LOGS: GLib.build_filenamev([STORAGE_DIR, 'daily-routine-log.json']),
+	WEEKLY_LOGS: GLib.build_filenamev([STORAGE_DIR, 'weekly-routine-log.json'])
+};
 const TaskType = { TASK: 'task', DAILY: 'daily', WEEKLY: 'weekly' };
 
 let taskManager = null;
@@ -35,8 +42,52 @@ const TaskManager = GObject.registerClass(
 
 		_loadData() {
 			try {
-				let [success, contents] = GLib.file_get_contents(STORAGE_FILE);
-				if (success) this._data = JSON.parse(new TextDecoder().decode(contents));
+				// Create storage directory if it doesn't exist
+				if (!GLib.file_test(STORAGE_DIR, GLib.FileTest.EXISTS)) {
+					GLib.mkdir_with_parents(STORAGE_DIR, 0o755);
+				}
+
+				// Initialize empty data structure
+				this._data = { tasks: [], dailyHabits: [], weeklyHabits: [] };
+
+				// Load tasks
+				if (GLib.file_test(STORAGE_FILES.TASKS, GLib.FileTest.EXISTS)) {
+					let [success, contents] = GLib.file_get_contents(STORAGE_FILES.TASKS);
+					if (success) this._data.tasks = JSON.parse(new TextDecoder().decode(contents));
+				}
+
+				// Load daily routines
+				if (GLib.file_test(STORAGE_FILES.DAILY_ROUTINES, GLib.FileTest.EXISTS)) {
+					let [success, contents] = GLib.file_get_contents(STORAGE_FILES.DAILY_ROUTINES);
+					if (success) this._data.dailyHabits = JSON.parse(new TextDecoder().decode(contents));
+				}
+
+				// Load weekly routines
+				if (GLib.file_test(STORAGE_FILES.WEEKLY_ROUTINES, GLib.FileTest.EXISTS)) {
+					let [success, contents] = GLib.file_get_contents(STORAGE_FILES.WEEKLY_ROUTINES);
+					if (success) this._data.weeklyHabits = JSON.parse(new TextDecoder().decode(contents));
+				}
+
+				// Load routine logs
+				if (GLib.file_test(STORAGE_FILES.DAILY_LOGS, GLib.FileTest.EXISTS)) {
+					let [success, contents] = GLib.file_get_contents(STORAGE_FILES.DAILY_LOGS);
+					if (success) {
+						const logs = JSON.parse(new TextDecoder().decode(contents));
+						this._data.dailyHabits.forEach(habit => {
+							habit.completions = logs[habit.id] || [];
+						});
+					}
+				}
+
+				if (GLib.file_test(STORAGE_FILES.WEEKLY_LOGS, GLib.FileTest.EXISTS)) {
+					let [success, contents] = GLib.file_get_contents(STORAGE_FILES.WEEKLY_LOGS);
+					if (success) {
+						const logs = JSON.parse(new TextDecoder().decode(contents));
+						this._data.weeklyHabits.forEach(habit => {
+							habit.completions = logs[habit.id] || [];
+						});
+					}
+				}
 			} catch (e) {
 				log('Failed to load data: ' + e);
 				this._data = { tasks: [], dailyHabits: [], weeklyHabits: [] };
@@ -45,8 +96,34 @@ const TaskManager = GObject.registerClass(
 
 		_saveData() {
 			try {
-				let contents = JSON.stringify(this._data, null, 2);
-				GLib.file_set_contents(STORAGE_FILE, contents);
+				// Save tasks
+				let tasksContent = JSON.stringify(this._data.tasks, null, 2);
+				GLib.file_set_contents(STORAGE_FILES.TASKS, tasksContent);
+
+				// Save daily routines (without completions)
+				let dailyRoutines = this._data.dailyHabits.map(({ completions, ...habit }) => habit);
+				let dailyRoutinesContent = JSON.stringify(dailyRoutines, null, 2);
+				GLib.file_set_contents(STORAGE_FILES.DAILY_ROUTINES, dailyRoutinesContent);
+
+				// Save weekly routines (without completions)
+				let weeklyRoutines = this._data.weeklyHabits.map(({ completions, ...habit }) => habit);
+				let weeklyRoutinesContent = JSON.stringify(weeklyRoutines, null, 2);
+				GLib.file_set_contents(STORAGE_FILES.WEEKLY_ROUTINES, weeklyRoutinesContent);
+
+				// Save routine logs
+				let dailyLogs = {};
+				this._data.dailyHabits.forEach(habit => {
+					dailyLogs[habit.id] = habit.completions;
+				});
+				let dailyLogsContent = JSON.stringify(dailyLogs, null, 2);
+				GLib.file_set_contents(STORAGE_FILES.DAILY_LOGS, dailyLogsContent);
+
+				let weeklyLogs = {};
+				this._data.weeklyHabits.forEach(habit => {
+					weeklyLogs[habit.id] = habit.completions;
+				});
+				let weeklyLogsContent = JSON.stringify(weeklyLogs, null, 2);
+				GLib.file_set_contents(STORAGE_FILES.WEEKLY_LOGS, weeklyLogsContent);
 			} catch (e) {
 				log('Failed to save data: ' + e);
 			}
