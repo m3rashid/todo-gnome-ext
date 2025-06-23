@@ -382,13 +382,15 @@ const TaskManager = GObject.registerClass(
 			let checkbox = new St.Button({ style_class: 'checkbox' + (task.completed ? ' checked' : '') });
 
 			let title = new St.Label({
-				text: task.title, style_class: 'task-title', x_align: Clutter.ActorAlign.START,
+				text: task.title,
+				style_class: 'task-title',
+				x_align: Clutter.ActorAlign.START,
 				y_align: Clutter.ActorAlign.START,
 			});
 			// Enable line wrap
 			title.clutter_text.line_wrap = true;
 			title.clutter_text.line_wrap_mode = Pango.WrapMode.WORD_CHAR; // or WORD
-			title.set_width(250)
+			title.set_width(400)
 
 			let editButton = new St.Button({ label: '✎', style_class: 'edit-button' });
 			let deleteButton = new St.Button({ label: '×', style_class: 'delete-button' });
@@ -439,7 +441,15 @@ const TaskManager = GObject.registerClass(
 				style_class: 'checkbox' + (this._isHabitCompletedToday(habit) ? ' checked' : '')
 			});
 
-			let title = new St.Label({ text: habit.title, style_class: 'task-title' });
+			let title = new St.Label({
+				text: habit.title,
+				style_class: 'task-title',
+				x_align: Clutter.ActorAlign.START,
+				y_align: Clutter.ActorAlign.START,
+			});
+			title.clutter_text.line_wrap = true;
+			title.clutter_text.line_wrap_mode = Pango.WrapMode.WORD_CHAR; // or WORD
+			title.set_width(400)
 
 			let editButton = new St.Button({ label: '✎', style_class: 'edit-button' });
 
@@ -452,7 +462,15 @@ const TaskManager = GObject.registerClass(
 			box.add_child(headerBox);
 
 			if (habit.description) {
-				let description = new St.Label({ text: habit.description, style_class: 'task-description' });
+				let description = new St.Label({
+					text: habit.description,
+					style_class: 'task-description',
+					x_align: Clutter.ActorAlign.START,
+					y_align: Clutter.ActorAlign.START,
+				});
+				description.clutter_text.line_wrap = true;
+				description.clutter_text.line_wrap_mode = Pango.WrapMode.WORD_CHAR; // or WORD
+				description.set_width(400)
 				box.add_child(description);
 			}
 
