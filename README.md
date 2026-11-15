@@ -1,11 +1,19 @@
-# Todo Manager (GNOME Extension)
+<div align="center">
 
-Simple todo manager for GNOME Shell.
+# ✅ Todo Manager (GNOME Extension)
 
-## Install
+**Simple todo manager for GNOME Shell.**
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+</div>
+
+---
+
+## 📦 Install
 
 Copy to `~/.local/share/gnome-shell/extensions/` and enable via GNOME Tweaks.
 
-## License
+## 📄 License
 
 MIT
